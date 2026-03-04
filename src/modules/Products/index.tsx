@@ -1,13 +1,15 @@
 import { createContext, useContext, type PropsWithChildren } from "react";
+import type { ProductsRepository } from "./repository/ProductsRepository";
+import { resetProducts } from "./repository/restProducts";
 
-const ProductsContext = createContext<string | null>(null);
+const ProductsContext = createContext<ProductsRepository | null>(null);
 
 interface Props extends PropsWithChildren {
-  value?: string;
+  value: ProductsRepository;
 }
-export const ProductsProvider = ({ children }: Props) => {
+export const ProductsProvider = ({ children, value }: Props) => {
   return (
-    <ProductsContext.Provider value={"products"}>
+    <ProductsContext.Provider value={value}>
       {children}
     </ProductsContext.Provider>
   );
@@ -19,4 +21,13 @@ export const useProducts = () => {
     throw new Error("useProducts must be used within a ProductsProvider");
   }
   return context;
+};
+
+export const createProductsModule = () => {
+  const value = resetProducts();
+  return {
+    Provider: ({ children }: PropsWithChildren) => (
+      <ProductsProvider value={value}>{children}</ProductsProvider>
+    ),
+  };
 };

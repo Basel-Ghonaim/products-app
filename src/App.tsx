@@ -1,10 +1,10 @@
-import { Typography } from "@mantine/core";
 import "./App.css";
+import { Products } from "./modules/Products/views/Products";
 
 function App() {
   return (
     <>
-      <Typography>advanced react GSG</Typography>
+      <Products />
     </>
   );
 }
