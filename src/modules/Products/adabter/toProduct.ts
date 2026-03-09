@@ -10,7 +10,8 @@ export const toProduct = (products: ProductDto[]): Product[] => {
     price: product.price,
     image: product.thumbnail,
     isAvailable: product.stock > 0,
-    hasDiscount: false,
+    hasDiscount: product.discountPercentage > 0,
+    discountPercentage: product.discountPercentage,
     reviews: product.reviews.map((review) => ({
       rating: review.rating,
       comment: review.comment,

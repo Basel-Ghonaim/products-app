@@ -5,6 +5,7 @@ export type ProductDto = {
   category: string;
   price: number;
   thumbnail: string;
+  discountPercentage: number;
   stock: number;
   reviews: ReviewDto[];
 };

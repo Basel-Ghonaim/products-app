@@ -10,11 +10,10 @@ import {
 } from "@mantine/core";
 import { useGetAllProducts } from "../hooks/useGetAllProducts";
 export const Products = () => {
-  const { products } = useGetAllProducts();
-
+  const { allProducts } = useGetAllProducts();
   return (
     <Grid>
-      {products.map((product) => (
+      {allProducts.map((product) => (
         <Grid.Col span={4} key={product.id}>
           <Card
             shadow="sm"

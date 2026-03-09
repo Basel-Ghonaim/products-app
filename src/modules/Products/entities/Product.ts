@@ -7,6 +7,7 @@ export interface Product {
   image: string;
   isAvailable: boolean;
   hasDiscount: boolean;
+  discountPercentage: number;
   reviews: Review[];
 }
 
