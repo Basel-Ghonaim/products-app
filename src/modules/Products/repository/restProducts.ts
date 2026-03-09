@@ -7,7 +7,7 @@ const baseUrl = "https://dummyjson.com/products";
 export const resetProducts = (): ProductsRepository => {
   return {
     getAll: async (): Promise<Product[]> => {
-      const response = await fetch(baseUrl);
+      const response = await fetch(`${baseUrl}?limit=100`);
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
