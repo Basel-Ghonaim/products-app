@@ -1,6 +1,7 @@
 import { Card, Image, Text, Badge, Group, Button, Stack } from "@mantine/core";
 import { Rating } from "@mantine/core";
 import type { Product as ProductProps } from "../entities/Product";
+import { useDeleteProduct } from "../hooks/useDeleteProduct";
 
 interface ProductComponentProps {
   product: ProductProps;
@@ -18,6 +19,10 @@ export function Product({ product }: ProductComponentProps) {
       ? product.reviews.reduce((acc, r) => acc + r.rating, 0) /
         product.reviews.length
       : 0;
+
+  const { mutate, isSuccess } = useDeleteProduct();
+
+  if (isSuccess) return null;
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -62,6 +67,16 @@ export function Product({ product }: ProductComponentProps) {
           color="blue"
         >
           Add To Cart
+        </Button>
+        <Button
+          fullWidth
+          radius="md"
+          disabled={!product.isAvailable}
+          variant="filled"
+          color="red"
+          onClick={() => mutate(product.id)}
+        >
+          Delete Product
         </Button>
       </Stack>
     </Card>

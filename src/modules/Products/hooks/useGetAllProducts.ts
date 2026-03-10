@@ -2,6 +2,7 @@ import { useProducts } from "..";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "../entities/Product";
 
+const Get_ALL_PRODUCTS_QUERY_KEY = ["products"];
 export const useGetAllProducts = () => {
   interface SelectedProducts {
     all: Product[];
@@ -19,7 +20,7 @@ export const useGetAllProducts = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: [Get_ALL_PRODUCTS_QUERY_KEY],
     queryFn: getAll,
     select: (data: Product[]): SelectedProducts => {
       return {
@@ -42,3 +43,5 @@ export const useGetAllProducts = () => {
     error,
   };
 };
+
+useGetAllProducts.queryKey = Get_ALL_PRODUCTS_QUERY_KEY;

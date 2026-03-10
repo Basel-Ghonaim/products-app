@@ -13,5 +13,13 @@ export const resetProducts = (): ProductsRepository => {
       }
       return response.json().then((data) => toProduct(data.products));
     },
+    delete: async (id: number): Promise<void> => {
+      const response = await fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete product");
+      }
+    },
   };
 };
