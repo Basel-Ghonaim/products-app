@@ -1,3 +1,4 @@
+import { buildQueryStringFromParams } from "../../../shared/utils/buildQuery";
 import { toProduct } from "../adabter/toProduct";
 import type { Product } from "../entities/Product";
 import type { ProductsRepository } from "./ProductsRepository";
@@ -6,8 +7,14 @@ const baseUrl = "https://dummyjson.com/products";
 
 export const resetProducts = (): ProductsRepository => {
   return {
-    getAll: async (): Promise<Product[]> => {
-      const response = await fetch(`${baseUrl}?limit=100`);
+    getAll: async (params): Promise<Product[]> => {
+      const queryString = buildQueryStringFromParams(params);
+
+      const response = await fetch(
+        params.category
+          ? `${baseUrl}/category/${params.category}?${queryString}`
+          : `${baseUrl}?${queryString}`,
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
