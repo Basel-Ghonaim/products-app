@@ -20,6 +20,15 @@ export const resetProducts = (): ProductsRepository => {
       }
       return response.json().then((data) => toProduct(data.products));
     },
+
+    getCategoryList: async (): Promise<string[]> => {
+      const response = await fetch(`${baseUrl}/category-list`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      return response.json().then((data) => data);
+    },
+
     delete: async (id: number): Promise<void> => {
       const response = await fetch(`${baseUrl}/${id}`, {
         method: "DELETE",
