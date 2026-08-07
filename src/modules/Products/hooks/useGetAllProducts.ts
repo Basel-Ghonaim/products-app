@@ -1,6 +1,7 @@
 import { useProducts } from "..";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "../entities/Product";
+import type { ProductsParams } from "../types/ProductParams";
 
 const Get_ALL_PRODUCTS_QUERY_KEY = ["products"];
 export const useGetAllProducts = () => {
@@ -9,6 +10,10 @@ export const useGetAllProducts = () => {
     productsWithDiscountHigherThan10: Product[];
     productsWithDiscountLowerThan10: Product[];
   }
+  const params: ProductsParams = {
+    limit: 30,
+    skip: 0,
+  };
   const { getAll } = useProducts();
 
   const {
@@ -20,8 +25,8 @@ export const useGetAllProducts = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: [Get_ALL_PRODUCTS_QUERY_KEY],
-    queryFn: getAll,
+    queryKey: [Get_ALL_PRODUCTS_QUERY_KEY, params],
+    queryFn: () => getAll(params),
     select: (data: Product[]): SelectedProducts => {
       return {
         all: data,
